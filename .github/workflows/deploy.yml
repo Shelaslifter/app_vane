@@ -32,7 +32,7 @@ jobs:
 
       # 3. Construye la app web
       - name: Build Flutter web
-        run: flutter build web --release --web-renderer canvaskit --base-href /app_vane/
+        run: flutter build web --release --web-renderer html
 
       # 4. (NUEVO) Crea el archivo .nojekyll para desactivar Jekyll
       - name: Create .nojekyll file
