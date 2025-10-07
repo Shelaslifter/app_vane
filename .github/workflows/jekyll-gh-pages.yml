@@ -1,0 +1,57 @@
+# Nombre del flujo de trabajo
+name: Deploy Flutter Web to GitHub Pages
+
+on:
+  # Se activa cada vez que subes cambios a la rama 'main'
+  push:
+    branches: [ "main" ]
+  
+  # Permite que lo ejecutes manualmente si quieres
+  workflow_dispatch:
+
+# Establece los permisos que necesita el robot para escribir en tu página de GitHub
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  # Este es el trabajo de "construcción"
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Descarga tu código
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Configura Flutter
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      # 3. Construye la app web
+      #    Asegúrate de que '/app_vane/' sea el nombre de tu repositorio
+      - name: Build Flutter web
+        run: flutter build web --release --web-renderer html --base-href /app_vane/
+
+      # 4. Sube el resultado (el "pastel horneado") para que el siguiente paso lo use
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./build/web
+
+  # Este es el trabajo de "despliegue"
+  deploy:
+    # Necesita que el trabajo de 'build' termine primero
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }} # Aquí se generará el link final
+
+    steps:
+      # Entrega el "pastel" a los servidores de GitHub
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
