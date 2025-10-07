@@ -1,0 +1,34 @@
+name: app_de_amor
+description: "Una aplicación muy especial con changuitos y amor."
+publish_to: 'none' 
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  google_fonts: ^6.1.0
+  flutter_animate: ^4.5.0
+  cupertino_icons: ^1.0.2
+  confetti: ^0.7.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  
+  # Esta es la línea que faltaba. Ayuda a encontrar errores en el código.
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+
+  # La palabra 'assets:' debe tener dos espacios a la izquierda.
+  assets:
+    # El guion '-' debe tener cuatro espacios a la izquierda.
+    - assets/
+    - assets/changos/
+    - assets/memes/
