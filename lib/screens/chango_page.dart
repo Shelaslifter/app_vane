@@ -1,4 +1,4 @@
-import 'package:app_de_amor/screens/detail_screen.dart';
+import 'package:app_de_amor/screens/gallery_viewer_screen.dart'; // 1. Importa el nuevo visor unificado
 import 'package:flutter/material.dart';
 
 class ChangoPage extends StatelessWidget {
@@ -8,12 +8,7 @@ class ChangoPage extends StatelessWidget {
     'assets/changos/chango1.jpg',
     'assets/changos/chango2.jpg',
     'assets/changos/chango3.jpg',
-    'assets/changos/changos4.jpg',
-    'assets/changos/changos5.jpg',
-    'assets/changos/changos6.jpg',
-    'assets/changos/changos7.jpg',
-    
-    // Asegúrate de que los nombres de archivo sean correctos
+    // ... agrega aquí las rutas a todas tus fotos de changos
   ];
 
   @override
@@ -34,19 +29,21 @@ class ChangoPage extends StatelessWidget {
         itemCount: changoPaths.length,
         itemBuilder: (context, index) {
           final path = changoPaths[index];
+          // Esta galería no maneja videos, así que el código es más simple.
+
           return GestureDetector(
             onTap: () {
+              // 2. Al tocar, navega al nuevo visor unificado
               Navigator.push(context, MaterialPageRoute(
-                // --- CÓDIGO CORREGIDO AQUÍ ---
-                // Quitamos el parámetro 'imageUrl' que sobraba
-                builder: (_) => DetailScreen(
-                  imagePath: path,
-                  heroTag: path,
+                builder: (_) => GalleryViewerScreen(
+                  galleryItems: changoPaths, // Le pasamos la lista completa de changos
+                  initialIndex: index,     // Le decimos en qué foto empezar
                 ),
               ));
             },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(15),
+              // Mantenemos la animación Hero para la transición inicial
               child: Hero(
                 tag: path,
                 child: Image.asset(

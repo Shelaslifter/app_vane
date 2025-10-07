@@ -1,16 +1,26 @@
-import 'package:app_de_amor/screens/detail_screen.dart';
+import 'package:app_de_amor/screens/gallery_viewer_screen.dart';
 import 'package:flutter/material.dart';
 
 class MemePage extends StatelessWidget {
   const MemePage({super.key});
 
-  // --- CAMBIO IMPORTANTE AQUÍ ---
-  // Ahora es una lista de rutas a tus imágenes locales
   final List<String> memePaths = const [
-    'assets/memes/meme1.jpg', // Asegúrate de que los nombres coincidan
-    'assets/memes/meme2.png',
-    'assets/memes/meme3.jpg',
-    // ... agrega las rutas de todas tus imágenes de memes aquí
+    'assets/memes/amor1.jpg',
+    'assets/memes/amor2.jpg',
+    'assets/memes/amor3.jpg',
+    'assets/memes/amor4.jpg',
+    'assets/memes/amor5.jpg',
+    'assets/memes/amor6.jpg',
+    'assets/memes/amor7.jpg',
+    'assets/memes/amor8.jpg',
+    'assets/memes/amor9.jpg',
+    'assets/memes/amor10.jpg',
+    'assets/memes/amor11.jpg',
+    'assets/memes/amor12.jpg',
+    'assets/memes/amor13.jpg',
+    'assets/memes/amor14.jpg',
+    'assets/memes/amor15.jpg',
+    'assets/memes/amor16.mp4',
   ];
 
   @override
@@ -31,27 +41,32 @@ class MemePage extends StatelessWidget {
         itemCount: memePaths.length,
         itemBuilder: (context, index) {
           final path = memePaths[index];
+          final bool isVideo = path.endsWith('.mp4');
+
           return GestureDetector(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(
-                // Le pasamos la ruta de la imagen local a la pantalla de detalle
-                builder: (_) => DetailScreen(
-                  imagePath: path,
-                  heroTag: path, // El tag para la animación sigue siendo la ruta
+                builder: (_) => GalleryViewerScreen(
+                  galleryItems: memePaths, 
+                  initialIndex: index,    
                 ),
               ));
             },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(15),
-              child: Hero(
-                tag: path,
-                // --- CAMBIO IMPORTANTE AQUÍ ---
-                // Reemplazamos Image.network por Image.asset
-                child: Image.asset(
-                  path,
-                  fit: BoxFit.cover,
-                ),
-              ),
+              child: isVideo
+                  ? Stack(
+                      fit: StackFit.expand,
+                      alignment: Alignment.center,
+                      children: [
+                        Container(color: Colors.black),
+                        const Icon(Icons.play_circle_outline, color: Colors.white, size: 50),
+                      ],
+                    )
+                  : Hero( 
+                      tag: path,
+                      child: Image.asset(path, fit: BoxFit.cover),
+                    ),
             ),
           );
         },

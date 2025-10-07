@@ -1,0 +1,8 @@
+# Título de la sección (¡muy importante!)
+[build]
+
+  # Tu comando de compilación (¡está perfecto!)
+  command = "git clone https://github.com/flutter/flutter.git && ./flutter/bin/flutter build web --web-renderer html"
+
+  # Tu directorio a publicar (¡está perfecto!)
+  publish = "build/web"

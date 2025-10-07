@@ -28,10 +28,12 @@ class FrasesPage extends StatefulWidget {
 }
 
 class _FrasesPageState extends State<FrasesPage> {
-  final PageController _pageController = PageController();
+  // --- CAMBIO 1: Empezamos en un número alto para simular el carrusel infinito ---
+  static const int _initialPage = 5000;
+  late PageController _pageController;
   late ConfettiController _heartController;
   late ConfettiController _monkeyController;
-  int _currentPage = 0;
+  int _currentPage = _initialPage;
 
   final List<String> frases = const [
     'Eres la casualidad más bonita que llegó a mi vida. Te quiero mucho.',
@@ -47,6 +49,7 @@ class _FrasesPageState extends State<FrasesPage> {
   @override
   void initState() {
     super.initState();
+    _pageController = PageController(initialPage: _initialPage);
     _pageController.addListener(() {
       if (_pageController.page?.round() != _currentPage) {
         setState(() {
@@ -73,8 +76,7 @@ class _FrasesPageState extends State<FrasesPage> {
       height: 10.0,
       width: isActive ? 25.0 : 10.0,
       decoration: BoxDecoration(
-        // --- ADVERTENCIA CORREGIDA AQUÍ ---
-        color: isActive ? Colors.white : Colors.white.withAlpha(138), // Equivalente a withOpacity(0.54)
+        color: isActive ? Colors.white : Colors.white.withAlpha(138),
         borderRadius: const BorderRadius.all(Radius.circular(12)),
       ),
     );
@@ -107,9 +109,11 @@ class _FrasesPageState extends State<FrasesPage> {
               children: [
                 PageView.builder(
                   controller: _pageController,
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: frases.length,
+                  // --- CAMBIO 2: Usamos un número muy grande para simular el infinito ---
+                  itemCount: 10000,
                   itemBuilder: (context, index) {
+                    // --- CAMBIO 3: Usamos el operador % para repetir la lista ---
+                    final actualIndex = index % frases.length;
                     return Padding(
                       padding: const EdgeInsets.fromLTRB(30, 30, 30, 100),
                       child: Card(
@@ -122,7 +126,7 @@ class _FrasesPageState extends State<FrasesPage> {
                               child: Padding(
                                 padding: const EdgeInsets.fromLTRB(20, 20, 20, 80),
                                 child: Text(
-                                  frases[index],
+                                  frases[actualIndex], // Usamos el índice calculado
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(
                                     fontFamily: 'cursive',
@@ -158,26 +162,28 @@ class _FrasesPageState extends State<FrasesPage> {
                     );
                   },
                 ),
+                
                 Positioned(
                   bottom: 40.0,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(frases.length, (index) {
-                      return _indicator(index == _currentPage);
+                      // --- CAMBIO 4: El indicador también usa el operador % ---
+                      return _indicator(index == _currentPage % frases.length);
                     }),
                   ),
                 ),
                 Positioned(
                   left: 0,
                   child: IconButton(
-                    icon: Icon(Icons.arrow_back_ios_new, color: Colors.white.withAlpha(178), size: 30), // Advertencia corregida aquí
+                    icon: Icon(Icons.arrow_back_ios_new, color: Colors.white.withAlpha(178), size: 30),
                     onPressed: () => _pageController.previousPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut),
                   ),
                 ),
                 Positioned(
                   right: 0,
                   child: IconButton(
-                    icon: Icon(Icons.arrow_forward_ios, color: Colors.white.withAlpha(178), size: 30), // Advertencia corregida aquí
+                    icon: Icon(Icons.arrow_forward_ios, color: Colors.white.withAlpha(178), size: 30),
                     onPressed: () => _pageController.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut),
                   ),
                 ),
