@@ -1,6 +1,8 @@
 [build]
-  # Este comando es más largo, pero garantiza que usemos una versión moderna de Flutter
-  command = "git clone https://github.com/flutter/flutter.git && cd flutter && git checkout 3.19.0 && cd .. && ./flutter/bin/flutter build web --web-renderer html"
+  # --- CAMBIO CLAVE AQUÍ ---
+  # 'rm -rf flutter &&' BORRA la carpeta vieja de Flutter antes de descargar la nueva.
+  # Esto asegura una instalación limpia en cada compilación.
+  command = "rm -rf flutter && git clone -b stable https://github.com/flutter/flutter.git && ./flutter/bin/flutter build web --web-renderer html"
 
-  # El directorio a publicar sigue siendo el mismo
+  # El directorio a publicar sigue siendo el mismo.
   publish = "build/web"
