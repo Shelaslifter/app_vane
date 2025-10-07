@@ -2,7 +2,7 @@ import 'package:app_de_amor/screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-// --- CONFIGURACIÓN PRINCIPAL DE LA APP ---
+// --- CONFIGURACIÓN PRINCIPAL DE LA APP      ---
 void main() {
   runApp(const MyApp());
 }
