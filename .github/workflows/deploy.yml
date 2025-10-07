@@ -30,7 +30,7 @@ jobs:
           flutter-version: '3.19.6'
           channel: 'stable'
 
-      # 3. Construye la app web
+      # 3. Construye la app webb
       - name: Build Flutter web
         run: flutter build web --release --web-renderer canvaskit --base-href /app_vane/
 
