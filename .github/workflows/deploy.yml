@@ -6,17 +6,16 @@ on:
   push:
     branches: [ "main" ]
 
-  # Permite que lo ejecutes manualmente si quieres
+  # Permite que lo ejecutes manually si quieres
   workflow_dispatch:
 
-# Establece los permisos que necesita el robot para escribir en tu página de GitHub
+# Establece los permisos
 permissions:
   contents: read
   pages: write
   id-token: write
 
 jobs:
-  # Este es el trabajo de "construcción"
   build:
     runs-on: ubuntu-latest
     steps:
@@ -24,25 +23,31 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 2. Configura Flutter (¡AQUÍ ESTÁ EL CAMBIO!)
-      #    Le decimos que use una versión específica y moderna de Flutter.
+      # 2. Configura Flutter
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.6' # Versión específica de Flutter
+          flutter-version: '3.19.6'
           channel: 'stable'
 
       # 3. Construye la app web
       - name: Build Flutter web
         run: flutter build web --release --web-renderer canvaskit --base-href /app_vane/
 
-      # 4. Sube el resultado para el siguiente paso
+      # 4. (NUEVO) Crea el archivo .nojekyll para desactivar Jekyll
+      - name: Create .nojekyll file
+        run: touch build/web/.nojekyll
+
+      # 5. (NUEVO - PARA DEPURAR) Lista los archivos en el directorio de salida
+      - name: List build files
+        run: ls -R build/web
+
+      # 6. Sube el resultado para el siguiente paso
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./build/web
 
-  # Este es el trabajo de "despliegue"
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -55,4 +60,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
