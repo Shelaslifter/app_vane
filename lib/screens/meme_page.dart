@@ -27,7 +27,7 @@ class MemePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Nuestros Memes 😂'),
+        title: const Text('Fotos Nuestras 🐵'),
         backgroundColor: Colors.teal,
         foregroundColor: Colors.white,
       ),
