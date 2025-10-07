@@ -22,7 +22,7 @@ class _RazonesPageState extends State<RazonesPage> {
     'Porque eres la persona más inteligente que conozco.',
     'Por apoyarme en todas mis locuras.',
     'Porque me haces querer ser una mejor persona.',
-    'Porque amo nuestros momentos de changuitos.',
+    'Porque amo nuestros momentos.',
     'Simplemente... porque eres tú.',
   ];
 

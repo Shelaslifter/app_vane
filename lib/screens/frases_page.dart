@@ -41,7 +41,7 @@ class _FrasesPageState extends State<FrasesPage> {
     'Me encantas más que el chocolate, y eso ya es decir mucho. ❤️',
     'Gracias por todas las risas y por hacer mis días más felices.',
     'Cada momento contigo es mi favorito. Eres increíble.',
-    'Eres mi changuita, mi persona favorita y mi todo. 🐒',
+    'Eres mi monita, mi persona favorita y mi todo. 🐒',
     'Contigo aprendí que los momentos más simples se convierten en los más especiales.',
     'Pienso en ti más veces de las que respiro al día. Te amo.',
   ];

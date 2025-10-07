@@ -60,8 +60,8 @@ class HomePage extends StatelessWidget {
                     children: [
                       OptionCard(
                         emoji: '🐵',
-                        title: 'Galería de Changuitos',
-                        description: 'Puros changos chistosos para reír.',
+                        title: 'Galería de monitos',
+                        description: 'monitos.',
                         onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ChangoPage())),
                       ),
                       const SizedBox(height: 20),
@@ -75,16 +75,16 @@ class HomePage extends StatelessWidget {
                       OptionCard(
                         emoji: '💖',
                         title: 'Frases de Amor',
-                        description: 'Mensajitos cursis para ti.',
+                        description: 'Mensajitos pa ti.',
                         // --- ERROR CORREGIDO AQUÍ ---
                         // Cambiamos 'FrasePage' por 'FrasesPage'
                         onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const FrasesPage())),
                       ),
                       const SizedBox(height: 20),
                       OptionCard(
-                        emoji: '😂',
-                        title: 'Nuestros Memes',
-                        description: 'Tú y yo versión chango.',
+                        emoji: '🐵',
+                        title: 'Fotos Nuestras',
+                        description: 'Tú y yo mi amor.',
                         onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MemePage())),
                       ),
                     ].animate(interval: 200.ms)
