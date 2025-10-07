@@ -24,18 +24,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 2. Configura Flutter
+      # 2. Configura Flutter (¡AQUÍ ESTÁ EL CAMBIO!)
+      #    Le decimos que use una versión específica y moderna de Flutter.
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.19.6' # Versión específica de Flutter
           channel: 'stable'
 
       # 3. Construye la app web
-      #    Asegúrate de que '/app_vane/' sea el nombre de tu repositorio
       - name: Build Flutter web
         run: flutter build web --release --web-renderer canvaskit --base-href /app_vane/
 
-      # 4. Sube el resultado (el "artefacto") para que el siguiente paso lo use
+      # 4. Sube el resultado para el siguiente paso
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -43,15 +44,15 @@ jobs:
 
   # Este es el trabajo de "despliegue"
   deploy:
-    # Necesita que el trabajo de 'build' termine primero
     needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }} # Aquí se generará el link final
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      # Entrega el "artefacto" a los servidores de GitHub
+      # Entrega el resultado a los servidores de GitHub
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
