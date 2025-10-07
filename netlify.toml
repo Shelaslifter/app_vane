@@ -1,8 +1,9 @@
-# Título de la sección (¡muy importante!)
+# Este es el archivo de configuración para Netlify
+
 [build]
+  # --- CAMBIO CLAVE AQUÍ ---
+  # Le agregamos '-b stable' para asegurarnos de que descargue la última versión ESTABLE de Flutter.
+  command = "git clone -b stable https://github.com/flutter/flutter.git && ./flutter/bin/flutter build web --web-renderer html"
 
-  # Tu comando de compilación (¡está perfecto!)
-  command = "git clone https://github.com/flutter/flutter.git && ./flutter/bin/flutter build web --web-renderer html"
-
-  # Tu directorio a publicar (¡está perfecto!)
+  # El directorio a publicar sigue siendo el mismo.
   publish = "build/web"
